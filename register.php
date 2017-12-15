@@ -1,17 +1,20 @@
-<h1>TO-DO FORM</h1>
-<h2>Create an account</h2>
-<form action= "index.php" method= "post" enctype= "multipart/form-data">
-Username : <input type="text" placeholder="Username" name="username" required /><br><br>
-Email : <input type="email" placeholder="Email" name="email" required /><br><br>
-First Name : <input type="text" placeholder="Firstname" name="firstname" required /><br><br>
-Last Name : <input type="text" placeholder="Lastname" name="lastmname" required/><br><br>
-Gender : <input type="radio"  name="gender" value="Female">Female
-         <input type="radio" name="Gender" value="male">Male<br><br>   
-ph No.: <input type="text" placeholder="phonenumber" name="phonenumber" required/><br><br>
-D.O.B : <input type="text" placeholder="birthdate" name="birthdate" required/><br><br>
-Password : <input type="password" placeholder="Password" name="password" required /><br><br>
-Confirm Password : <input type="password" placeholder="Confirm Password" name="confirm password" required /><br><br>
-<input type="submit" value="Register">
+
+
+<html>
+<head>
+<p><b><h1> To-Do Form</h1></b></p>
+<body>
+<form action="database.php" method="post" enctype="multipart/form-data">
+First Name : <input type="text" name="fname" placeholder="First name" pattern=".{1,}"required ><br><br>
+Last Name : <input type="text" name="lname" placeholder="Last name" pattern=".{1,}" required><br><br>
+Email : <input type="email" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>
+Phone : <input type="tel" name="tel" placeholder="123-4567890" maxlength="10" required><br><br>
+Birthday : <input type="date" name="bday" placeholder="mm/dd/yyyy" required><br><br>
+Gender : <input type="radio" name="gender" value="Male">Male
+         <input type="radio" name="gender" value="Female">Female<br><br>
+Password : <input type="password" name="psw" placeholder="Password" pattern=".{6,}" required><br><br>
+<input type="submit" value="Submit">
 </form>
 </body>
 </html>
+
