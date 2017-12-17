@@ -121,7 +121,6 @@ class routes
         $route->controller = 'accountsController';
         $route->method = 'edit';
         $routes[] = $route;
-
         $route = new route();
         $route->http_method = 'POST';
         $route->action = 'save';
