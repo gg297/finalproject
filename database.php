@@ -1,31 +1,51 @@
 <?php
-ini_set('display_errors','On');
+
+/*define('DATABASE', 'webgrowt_kwilliam');
+define('USERNAME', 'webgrowt_kwillia');
+define('PASSWORD', '%(w+U$H@$Kez');
+define('CONNECTION', '');*/
+
+
+ini_set('display_errors', 'On');
 error_reporting(E_ALL);
-$servername = "sql2.njit.edu";
-$username = "gg297";
-$password = "IKgzb60IH";
+define('DATABASE', 'gg297');
+define('USERNAME', 'gg297');
+define('PASSWORD', 'IKgzb60IH');
+define('CONNECTION', 'sql2.njit.edu');
+class dbConn
+{
+    //variable to hold connection object.
+       protected static $db;
+    //private construct - class cannot be instatiated externally.
+      private function __construct() 
+        {
 
-$fname = $_POST['fname']; 
-$lname = $_POST['lname'];
-$email = $_POST['email'];
-$phone = $_POST['tel'];
-$bday = $_POST['bday'];
-$gender = $_POST['gender'];
-$pass = $_POST['psw'];
-$pass1=password_hash("$pass", PASSWORD_BCRYPT);
-try {
-    $conn= new PDO("mysql:host=$servername;dbname=anm56", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully";
-    echo "<br>"; 
-    $sql= $conn->prepare("INSERT INTO accounts (fname, lname, email, phone, birthday, gender, password) VALUES ('$fname', '$lname', '$email', 
-                                                 '$phone','$bday', '$gender', '$pass1')"); 
-   $sql->execute();
-  // $results=$sql->fetchAll();
+           try 
+             {
+               // assign PDO object to db variable
+              self::$db = new PDO( 'mysql:host=' . CONNECTION .';dbname=' . DATABASE, USERNAME, PASSWORD );
+              self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+             }
 
-    }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
-?>
+           catch (PDOException $e)
+             {
+              //Output error - would normally log this to error file rather than output to user.
+              echo "Connection Error: " . $e->getMessage();
+             }
+        }
+    
+    // get connection function. Static method - accessible without instantiation
+    
+      public static function getConnection() 
+        {
+           //Guarantees single instance, if no connection object exists then create one.
+            if (!self::$db) 
+            {
+                //new connection object.
+                 new dbConn();
+            }
+        
+          //return connection.
+          return self::$db;
+        }
+}
